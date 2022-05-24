@@ -9,6 +9,7 @@
   "author": "Lucas D. Gaio",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "express": "^4.18.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.19.2"
