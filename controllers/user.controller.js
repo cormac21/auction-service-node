@@ -29,7 +29,40 @@ function read(req, res) {
     });
 }
 
+function index(req, res) {
+    models.User.findAll().then(result => {
+        res.status(200).json(result);
+    }).catch( error => {
+        res.status(500).json({
+            message: "Something went wrong!"
+        })
+    });
+}
+
+function update(req, res) {
+    const id = req.params.id;
+    const updatedUser = {
+        name: req.body.name,
+        password: req.body.password
+    }
+
+    models.User.update(updatedUser, {
+        where: {
+            id: id
+        }
+    }).then( result => {
+        res.status(200).json(updatedUser);
+    }).catch( error => {
+        res.status(500).json({
+            message: "something went wrong"
+        })
+    });
+
+}
+
 module.exports = {
     save: save,
-    read: read
+    read: read,
+    index: index,
+    update: update
 }
