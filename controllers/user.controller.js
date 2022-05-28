@@ -1,11 +1,26 @@
+const Validator = require('fastest-validator')
 const models = require('../models')
-
 
 function save(req, res) {
     const user = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
+    }
+
+    const schema = {
+        email: {type: "string", optional: false},
+        password: {type: "string", optional: false}
+    }
+
+    const v = new Validator();
+    const validationObj = v.validate(user, schema);
+
+    if ( validationObj !== true ) {
+        return res.status(400).json({
+           message: "Validation failed",
+           errors: validationObj
+        });
     }
 
     models.User.create(user).then( result => {
