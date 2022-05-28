@@ -57,6 +57,23 @@ function update(req, res) {
             message: "something went wrong"
         })
     });
+}
+
+function destroy(req, res) {
+    const id = req.params.id;
+    models.User.destroy({
+        where: {
+        id: id
+        }
+    }).then( result => {
+       res.status(200).json({
+           message: "User deleted successfully!"
+       })
+    }).catch( error => {
+        res.status(500).json({
+            message: "Something went wrong!"
+        })
+    });
 
 }
 
@@ -64,5 +81,6 @@ module.exports = {
     save: save,
     read: read,
     index: index,
-    update: update
+    update: update,
+    destroy: destroy
 }
