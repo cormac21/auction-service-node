@@ -140,7 +140,7 @@ function login(req, res) {
                     const token = jwt.sign({
                         email: user.email,
                         roles: user.roles
-                    }, 'secret', function(error, token){
+                    }, process.env.JWT_KEY, function(error, token){
                         res.status(200).json({
                            message: "Authentication successful!",
                            token: token
